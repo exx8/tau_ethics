@@ -100,7 +100,7 @@ dialog.querySelector('#dialog-rate_save').addEventListener('click', function() {
     const description = document.querySelector('#description').value;
     const id = getRandomId();
     const data = { type, description, coords: currentPinCoords };
-    L.marker(currentPinCoords,{icon:markerPicker(type)}).addTo(map);
+    L.marker(currentPinCoords,{icon:markerPicker(type)}).bindTooltip("<b>type</b>:"+type+"<br/> <b>description:</b>"+description).addTo(map);
 
     fetch(`/add_point?id=${id}&data=${JSON.stringify(data)}`, {
       method: 'GET'
