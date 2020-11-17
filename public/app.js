@@ -1,3 +1,23 @@
+//credit to SA
+hashCode = function(s){
+  return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);
+}
+function markerPicker(str)
+{
+  let hash=hashCode(str)%9;
+  let colorArr=["blue","gold","red","green","orange","yellow","violet","grey","black"];
+  let url="/img/marker-icon-"+colorArr[hash]+".png";
+  return new L.Icon({
+      iconUrl: url,
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    });
+
+
+}
 const map = L.map('map').fitWorld();
 
 if (true) {
@@ -75,12 +95,12 @@ dialog.querySelector('#dialog-rate_save').addEventListener('click', function() {
   dialog.close();
 
   if (currentPinCoords) {
-    L.marker(currentPinCoords).addTo(map);
 
     const type = document.querySelector('#type').value;
     const description = document.querySelector('#description').value;
     const id = getRandomId();
     const data = { type, description, coords: currentPinCoords };
+    L.marker(currentPinCoords,{icon:markerPicker(type)}).addTo(map);
 
     fetch(`/add_point?id=${id}&data=${JSON.stringify(data)}`, {
       method: 'GET'
