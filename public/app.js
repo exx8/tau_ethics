@@ -4,7 +4,7 @@ hashCode = function(s){
 }
 function markerPicker(str)
 {
-  let hash=hashCode(str)%9;
+  let hash=Math.abs(hashCode(str)%9);
   let colorArr=["blue","gold","red","green","orange","yellow","violet","grey","black"];
   let url="/img/marker-icon-"+colorArr[hash]+".png";
   return new L.Icon({
