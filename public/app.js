@@ -135,7 +135,6 @@ fetch('/all_points', { method: 'GET' })
       id => {
         const pointData = JSON.parse(data[id]);
         addPointToMap(pointData.type,pointData.description,pointData.coords);
-       // L.marker(pointData.coords).addTo(map);
       }
     );
   }
