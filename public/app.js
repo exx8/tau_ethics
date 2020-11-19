@@ -92,7 +92,20 @@ if (!dialog.showModal) {
 
 function addPointToMap(type, description,coords) {
 
-  L.marker(coords, {icon: markerPicker(type)}).bindTooltip("<b>type</b>:" + type + "<br/> <b>description:</b>" + description).addTo(map);
+  const marker = L.marker(coords, {icon: markerPicker(type)});
+  function click_handler()
+  {
+    map.
+        currentPinCoords=coords;
+    dialog.showModal();
+    const userType = document.getElementById("type");
+    userType.value=type;
+    const userDescription = document.getElementById("description");
+    userDescription.value=description;
+    map.removeLayer(marker);
+    addPointToMap(userType.value, userDescription.value,coords);
+  }
+  marker.bindTooltip("<b>type</b>:" + type + "<br/> <b>description:</b>" + description).on('click',click_handler).addTo(map);
 }
 
 // Dialog save
