@@ -90,7 +90,7 @@ if (!dialog.showModal) {
   dialogPolyfill.registerDialog(dialog);
 }
 
-function addPointToMap(type, description,coords) {
+function addPointToMap(type, description,coords,{open=false,id}) {
 
   const marker = L.marker(coords, {icon: markerPicker(type)});
   function click_handler()
@@ -105,7 +105,12 @@ function addPointToMap(type, description,coords) {
     currentPinCoords=coords;
     editMode=true;
   }
-  marker.bindTooltip("<b>type</b>:" + type + "<br/> <b>description:</b>" + description).on('click',click_handler).addTo(map);
+
+  const markerWithToolTip = marker.bindTooltip("<b>type</b>:" + type + "<br/> <b>description:</b>" + description);
+  marker._leaflet_id=id ?? marker._leaflet_id;
+  if(open)
+    markerWithToolTip.openTooltip();
+  markerWithToolTip.on('click',click_handler).addTo(map);
 }
 
 // Dialog save
@@ -149,7 +154,7 @@ function deactivateAddPinButton() {
   const pinButton = document.getElementById('add-pin-button');
   pinButton.classList.remove('a-pin-button--active');
 }
-
+let anchor=getAnchor();
 // Load map:
 fetch('/all_points', { method: 'GET' })
   .then(result => result.json())
@@ -157,9 +162,10 @@ fetch('/all_points', { method: 'GET' })
     Object.keys(data).forEach(
       id => {
         const pointData = JSON.parse(data[id]);
-        addPointToMap(pointData.type,pointData.description,pointData.coords);
+        addPointToMap(pointData.type,pointData.description,pointData.coords,{open:id==anchor,id:id});
       }
     );
+
   }
 );
 
@@ -167,3 +173,9 @@ fetch('/all_points', { method: 'GET' })
 function getRandomId() {
   return Math.random().toString().substr(2, 9);
 };
+
+function getAnchor()
+{
+ return document.URL.split("#")[1];
+
+}
