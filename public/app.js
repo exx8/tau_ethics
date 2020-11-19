@@ -95,15 +95,15 @@ function addPointToMap(type, description,coords) {
   const marker = L.marker(coords, {icon: markerPicker(type)});
   function click_handler()
   {
-    map.
-        currentPinCoords=coords;
+    map.currentPinCoords=coords;
     dialog.showModal();
     const userType = document.getElementById("type");
     userType.value=type;
     const userDescription = document.getElementById("description");
     userDescription.value=description;
     map.removeLayer(marker);
-    addPointToMap(userType.value, userDescription.value,coords);
+    currentPinCoords=coords;
+    editMode=true;
   }
   marker.bindTooltip("<b>type</b>:" + type + "<br/> <b>description:</b>" + description).on('click',click_handler).addTo(map);
 }
@@ -112,18 +112,28 @@ function addPointToMap(type, description,coords) {
 dialog.querySelector('#dialog-rate_save').addEventListener('click', function() {
   dialog.close();
 
-  if (currentPinCoords) {
+  if (currentPinCoords&&!editMode) {
 
     const type = document.querySelector('#type').value;
     const description = document.querySelector('#description').value;
     const id = getRandomId();
-    const data = { type, description, coords: currentPinCoords };
-    addPointToMap(type, description,currentPinCoords);
+    const data = {type, description, coords: currentPinCoords};
+    addPointToMap(type, description, currentPinCoords);
 
     fetch(`/add_point?id=${id}&data=${JSON.stringify(data)}`, {
       method: 'GET'
-    });
+    })
   }
+    else
+    {
+      editMode=false;
+      const type = document.querySelector('#type').value;
+      const description = document.querySelector('#description').value;
+      addPointToMap(type, description, currentPinCoords);
+
+
+    };
+
 
   deactivateAddPinButton();
 });
