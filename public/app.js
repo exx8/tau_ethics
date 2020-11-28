@@ -2,19 +2,20 @@
 hashCode = function(s){
   return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);
 }
+editMode=false;
 function markerPicker(str)
 {
   let hash=Math.abs(hashCode(str)%9);
   let colorArr=["blue","gold","red","green","orange","yellow","violet","grey","black"];
   let url="/img/marker-icon-"+colorArr[hash]+".png";
   return new L.Icon({
-      iconUrl: url,
-      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      shadowSize: [41, 41]
-    });
+    iconUrl: url,
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
 
 
 }
@@ -124,15 +125,15 @@ dialog.querySelector('#dialog-rate_save').addEventListener('click', function() {
       method: 'GET'
     })
   }
-    else
-    {
-      editMode=false;
-      const type = document.querySelector('#type').value;
-      const description = document.querySelector('#description').value;
-      addPointToMap(type, description, currentPinCoords);
+  else
+  {
+    editMode=false;
+    const type = document.querySelector('#type').value;
+    const description = document.querySelector('#description').value;
+    addPointToMap(type, description, currentPinCoords);
 
 
-    };
+  };
 
 
   deactivateAddPinButton();
@@ -152,16 +153,16 @@ function deactivateAddPinButton() {
 
 // Load map:
 fetch('/all_points', { method: 'GET' })
-  .then(result => result.json())
-  .then(data => {
-    Object.keys(data).forEach(
-      id => {
-        const pointData = JSON.parse(data[id]);
-        addPointToMap(pointData.type,pointData.description,pointData.coords);
-      }
+    .then(result => result.json())
+    .then(data => {
+          Object.keys(data).forEach(
+              id => {
+                const pointData = JSON.parse(data[id]);
+                addPointToMap(pointData.type,pointData.description,pointData.coords);
+              }
+          );
+        }
     );
-  }
-);
 
 // Utils
 function getRandomId() {
