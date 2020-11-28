@@ -26,10 +26,10 @@ if (true) {
     maxZoom: 19,
     attribution: '<a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map);
-  map.setZoom(12);
+  map.setZoom(19);
   map.panTo(new L.LatLng(32.070953, 34.763514));
 } else {
-  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYaycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
     maxZoom: 18,
     attribution: '<a href="https://www.mapbox.com/">Mapbox</a>',
     id: 'mapbox/streets-v11',
@@ -42,7 +42,7 @@ if (true) {
 let pinInPlacement = false;
 // Current pin coordinates, set by pressing the map
 let currentPinCoords = null;
-const ZOOM_TO_LOCATION = false;
+const ZOOM_TO_LOCATION = true;
 
 // Example code to show how to get GPS location and place pin on map in that location
 if (ZOOM_TO_LOCATION) {
@@ -51,7 +51,7 @@ if (ZOOM_TO_LOCATION) {
 
     L.marker(e.latlng)
         .addTo(map)
-        .on('dblclick', onDoubleClick)
+        .on('dblclick')
         .bindPopup("You are within " + radius + " meters from this point")
         .openPopup();
 
@@ -64,7 +64,7 @@ if (ZOOM_TO_LOCATION) {
 
   map.on('locationfound', onLocationFound);
   map.on('locationerror', onLocationError);
-  map.locate({setView: true, maxZoom: 16});
+  map.locate({setView: true, maxZoom: 19});
 }
 
 // Map press event
