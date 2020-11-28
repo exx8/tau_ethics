@@ -109,7 +109,7 @@ function addPointToMap(type, description,coords,{open=false,id}) {
   const markerWithToolTip = marker.bindTooltip("<b>type</b>:" + type + "<br/> <b>description:</b>" + description);
   marker._leaflet_id=id ?? marker._leaflet_id;
   if(open)
-    markerWithToolTip.openTooltip();
+    marker.openTooltip();
   markerWithToolTip.on('click',click_handler).addTo(map);
 }
 
