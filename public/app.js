@@ -91,22 +91,24 @@ if (!dialog.showModal) {
   dialogPolyfill.registerDialog(dialog);
 }
 
-function addPointToMap(type, description,coords) {
+function addPointToMap(event, severity,coords) {
 
-  const marker = L.marker(coords, {icon: markerPicker(type)});
+  const marker = L.marker(coords, {icon: markerPicker(event)});
   function click_handler()
   {
     map.currentPinCoords=coords;
     dialog.showModal();
-    const userType = document.getElementById("type");
-    userType.value=type;
-    const userDescription = document.getElementById("description");
-    userDescription.value=description;
+
+    
+    const userEvent = document.getElementById("event");
+    userEvent.value = event;
+    const userSeverity = document.getElementById("severity");
+    userSeverity.value=severity;
     map.removeLayer(marker);
     currentPinCoords=coords;
     editMode=true;
   }
-  marker.bindTooltip("<b>type</b>:" + type + "<br/> <b>description:</b>" + description).on('click',click_handler).addTo(map);
+  marker.bindTooltip("<b>אירוע</b>:" + event + "<br/> <b>חומרה:</b>" + severity).on('click',click_handler).addTo(map);
 }
 
 // Dialog save
@@ -115,11 +117,11 @@ dialog.querySelector('#dialog-rate_save').addEventListener('click', function() {
 
   if (currentPinCoords&&!editMode) {
 
-    const type = document.querySelector('#type').value;
-    const description = document.querySelector('#description').value;
+    const event = document.querySelector('#event').value;
+    const severity = document.querySelector('#severity').value;
     const id = getRandomId();
-    const data = {type, description, coords: currentPinCoords};
-    addPointToMap(type, description, currentPinCoords);
+    const data = {event, severity, coords: currentPinCoords};
+    addPointToMap(event, severity, currentPinCoords);
 
     fetch(`/add_point?id=${id}&data=${JSON.stringify(data)}`, {
       method: 'GET'
@@ -128,9 +130,9 @@ dialog.querySelector('#dialog-rate_save').addEventListener('click', function() {
   else
   {
     editMode=false;
-    const type = document.querySelector('#type').value;
-    const description = document.querySelector('#description').value;
-    addPointToMap(type, description, currentPinCoords);
+    const event = document.querySelector('#event').value;
+    const severity = document.querySelector('#severity').value;
+    addPointToMap(event, severity, currentPinCoords);
 
 
   };
@@ -158,7 +160,7 @@ fetch('/all_points', { method: 'GET' })
           Object.keys(data).forEach(
               id => {
                 const pointData = JSON.parse(data[id]);
-                addPointToMap(pointData.type,pointData.description,pointData.coords);
+                addPointToMap(pointData.event,pointData.severity,pointData.coords);
               }
           );
         }
