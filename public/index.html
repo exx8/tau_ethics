@@ -22,16 +22,33 @@
     <div class="mdc-fab__ripple"></div>
     <span class="mdc-fab__icon material-icons">add</span>
   </button>
-  <dialog class="mdl-dialog">
+  <dialog class="mdl-dialog"dir="rtl">
       <h4 class="mdl-dialog__title">New marker</h4>
       <div class="mdl-dialog__content">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="type">
-          <label class="mdl-textfield__label" for="type">Type</label>
-        </div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="description">
-          <label class="mdl-textfield__label" for="description">Description</label>
+          <label for="event" dir="rtl">אירוע</label>
+          <select id="event" > 
+          <option value="מדרכה צרה" dir="rtl" >מדרכה צרה</option>
+          <optgroup label="מכשול בדרך" dir="rtl">מכשול בדרך>
+          <option value="עמוד" dir="rtl">עמוד</option>
+          <option value="עץ" dir="rtl">עץ</option>
+          <option value="בור" dir="rtl"> בור</option>
+          <option value="מדרכה שבורה" dir="rtl"> מדרכה שבורה</option>
+          <option value=" תחנת אוטובוס" dir="rtl">תחנת אוטובוס</option>
+          </optgroup>
+          <option value="ירידה לא בטוחה למעבר חצייה" dir="rtl" >ירידה לא בטוחה למעבר חצייה</option>
+          <option value="שירותי נכים" dir="rtl" >שירותי נכים</option>
+          <option value="חניית נכים" dir="rtl" >חניית נכים</option>
+          <option value="חוף ים נגיש" dir="rtl" >חוף ים נגיש</option>
+          <option value="ספסל נגיש" dir="rtl" >ספסל נגיש</option>
+          </select>
+          
+          <label for="severity" dir="rtl">חומרה</label>
+          <select id="severity" dir="rtl"> חומרה
+          <option value="קריטי " dir="rtl" >קריטי </option>
+          <option value="חשוב " dir="rtl" >חשוב מאוד</option>
+          <option value="מינורי" dir="rtl" >מינורי</option>
+          </select>
         </div>
       </div>
       <div class="mdl-dialog__actions">
