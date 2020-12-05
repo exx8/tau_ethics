@@ -91,7 +91,7 @@ if (!dialog.showModal) {
   dialogPolyfill.registerDialog(dialog);
 }
 
-function addPointToMap(event, severity, coords, id) {
+function addPointToMap(id, event, severity, coords) {
 
   const marker = L.marker(coords, {icon: markerPicker(event),id});
   function click_handler()
@@ -124,7 +124,7 @@ dialog.querySelector('#dialog-rate_save').addEventListener('click', function() {
     const severity = document.querySelector('#severity').value;
     const id = getRandomId();
     const data = {event, severity, coords: currentPinCoords};
-    addPointToMap(event, severity, currentPinCoords, id);
+    addPointToMap(id, event, severity, currentPinCoords);
 
     fetch(`/add_point?id=${id}&data=${JSON.stringify(data)}`, {
       method: 'GET'
@@ -135,7 +135,7 @@ dialog.querySelector('#dialog-rate_save').addEventListener('click', function() {
     editMode=false;
     const event = document.querySelector('#event').value;
     const severity = document.querySelector('#severity').value;
-    addPointToMap(event, severity, currentPinCoords, id);
+    addPointToMap(id, event, severity, currentPinCoords);
 
 
   };
@@ -163,7 +163,7 @@ fetch('/all_points', { method: 'GET' })
           Object.keys(data).forEach(
               id => {
                 const pointData = JSON.parse(data[id]);
-                addPointToMap(pointData.event, pointData.severity, pointData.coords, id);
+                addPointToMap(id, pointData.event, pointData.severity, pointData.coords);
               }
           );
         }
