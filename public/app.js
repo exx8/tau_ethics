@@ -91,20 +91,23 @@ if (!dialog.showModal) {
   dialogPolyfill.registerDialog(dialog);
 }
 
-function addPointToMap(event, severity,coords) {
+function addPointToMap(id, event, severity, coords) {
 
-  const marker = L.marker(coords, {icon: markerPicker(event)});
+  const marker = L.marker(coords, {icon: markerPicker(event),id});
   function click_handler()
   {
     map.currentPinCoords=coords;
     dialog.showModal();
 
-    
+
     const userEvent = document.getElementById("event");
     userEvent.value = event;
     const userSeverity = document.getElementById("severity");
     userSeverity.value=severity;
     map.removeLayer(marker);
+    fetch(`/delete?id=${id}`, {
+      method: 'GET'
+    })
     currentPinCoords=coords;
     editMode=true;
   }
@@ -115,13 +118,13 @@ function addPointToMap(event, severity,coords) {
 dialog.querySelector('#dialog-rate_save').addEventListener('click', function() {
   dialog.close();
 
-  if (currentPinCoords&&!editMode) {
+  if (currentPinCoords) {
 
     const event = document.querySelector('#event').value;
     const severity = document.querySelector('#severity').value;
     const id = getRandomId();
     const data = {event, severity, coords: currentPinCoords};
-    addPointToMap(event, severity, currentPinCoords);
+    addPointToMap(id, event, severity, currentPinCoords);
 
     fetch(`/add_point?id=${id}&data=${JSON.stringify(data)}`, {
       method: 'GET'
@@ -132,7 +135,7 @@ dialog.querySelector('#dialog-rate_save').addEventListener('click', function() {
     editMode=false;
     const event = document.querySelector('#event').value;
     const severity = document.querySelector('#severity').value;
-    addPointToMap(event, severity, currentPinCoords);
+    addPointToMap(id, event, severity, currentPinCoords);
 
 
   };
@@ -160,7 +163,7 @@ fetch('/all_points', { method: 'GET' })
           Object.keys(data).forEach(
               id => {
                 const pointData = JSON.parse(data[id]);
-                addPointToMap(pointData.event,pointData.severity,pointData.coords);
+                addPointToMap(id, pointData.event, pointData.severity, pointData.coords);
               }
           );
         }

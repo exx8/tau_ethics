@@ -8,8 +8,13 @@ function handle(request, response) {
     response.sendJSON({ 'status': 'ok' });
 
   } else if (path === '/all_points') {
-    const allPoints = { ...localStorage };
+    const allPoints = {...localStorage};
     response.sendJSON(allPoints);
+  }
+  else if (path==='/delete')
+  {
+    localStorage.removeItem(request.param.id);
+    response.sendJSON({ 'status': 'ok' });
 
   } else {
     getFile('public' + path).subscribe(file => {
