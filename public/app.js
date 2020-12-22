@@ -5,11 +5,10 @@ hashCode = function(s){
 editMode=false;
 function markerPicker(str)
 {
-  let hash=Math.abs(hashCode(str)%9);
   let dict={
     "מדרכה צרה":"image1.png",
     "עמוד":"image2.png",
-    "עץ":"image3.png",
+    "עץ":"Tree-256x256.png",
     "בור":"image4.png",
     "מדרכה שבורה":"image6.png",
     "תחנת אוטובוס":"bus.webp",
@@ -21,7 +20,7 @@ function markerPicker(str)
 
 
   }
-  let url="/img/"+str;
+  let url="/img/"+dict[str.trim()];
   return new L.Icon({
     iconUrl: url,
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
