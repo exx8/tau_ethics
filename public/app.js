@@ -15,7 +15,7 @@ function markerPicker(str)
     "ירידה לא בטוחה למעבר חצייה":"image8.png",
     "שירותי נכים": "image10.png",
     "חניית נכים":"image11.png",
-  "חוף ים נגיש":"beach.svg",
+  "חוף ים נגיש":"beach.png",
     "ספסל נגיש":"image12.png"
 
 
@@ -124,20 +124,33 @@ function addPointToMap(id, event, severity, coords) {
     currentPinCoords=coords;
     editMode=true;
   }
-  marker.bindTooltip("<b>אירוע</b>:" + event + "<br/> <b>חומרה:</b>" + severity).on('click',click_handler).addTo(map);
+
+  let severityOutput = severity?.disabled? "<b>חומרה:</b>" + severity?.value: "";
+  marker.bindTooltip("<b>אירוע</b>:" + event + "<br/> " + severityOutput).on('click',click_handler).addTo(map);
 }
 
 // Dialog save
 dialog.querySelector('#dialog-rate_save').addEventListener('click', function() {
   dialog.close();
 
+  const severityDom = document.querySelector('#severity');
   if (currentPinCoords) {
 
     const event = document.querySelector('#event').value;
-    const severity = document.querySelector('#severity').value;
     const id = getRandomId();
-    const data = {event, severity, coords: currentPinCoords};
-    addPointToMap(id, event, severity, currentPinCoords);
+    let data;
+
+    if(severityDom.disabled) {
+      data = {event, coords: currentPinCoords};
+      severityOutput=null;
+    }
+
+    else {
+      severityOutput=severityDom.value;
+      data = {event, severity: severityOutput, coords: currentPinCoords};
+
+    }
+    addPointToMap(id, event, severityOutput, currentPinCoords);
 
     fetch(`/add_point?id=${id}&data=${JSON.stringify(data)}`, {
       method: 'GET'
@@ -147,7 +160,7 @@ dialog.querySelector('#dialog-rate_save').addEventListener('click', function() {
   {
     editMode=false;
     const event = document.querySelector('#event').value;
-    const severity = document.querySelector('#severity').value;
+    const severity = severityDom.value;
     addPointToMap(id, event, severity, currentPinCoords);
 
 
@@ -181,7 +194,17 @@ fetch('/all_points', { method: 'GET' })
           );
         }
     );
+function eventSelected()
+{
+  var severity=document.getElementById("severity");
+  var e = document.getElementById("event");
+  var strUser = e.options[e.selectedIndex].text;
 
+  if( ["תחנת אוטובוס","שירותי נכים","חוף ים נגיש","ספסל נגיש","חניית נכים"].includes(strUser))
+      severity.setAttribute("disabled","disabled");
+  else
+    severity.removeAttribute("disabled");
+}
 // Utils
 function getRandomId() {
   return Math.random().toString().substr(2, 9);
