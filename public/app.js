@@ -19,7 +19,8 @@ function markerPicker(str) {
         "שירותי נכים": "image10.png",
         "חניית נכים": "image11.png",
         "חוף ים נגיש": "beach.png",
-        "ספסל נגיש": "image12.png"
+        "ספסל נגיש": "image12.png",
+        "מכשול כללי": "danger.webp"
 
 
     }
@@ -129,7 +130,7 @@ function addPointToMap(id, event, severity, coords) {
         editMode = true;
     }
 
-    let severityOutput = severity?.disabled ? "<b>חומרה:</b>" + severity?.value : "";
+    let severityOutput = severity ? "<b>חומרה:</b>" + severity : "";
     marker.bindTooltip("<b>אירוע</b>:" + event + "<br/> " + severityOutput).on('click', click_handler).addTo(map);
 }
 
