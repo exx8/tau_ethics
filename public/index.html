@@ -1,61 +1,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title> Map </title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title> Map </title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
-  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
-  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-  <link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.indigo-pink.min.css">
-  <script defer src="https://code.getmdl.io/1.2.0/material.min.js"></script>
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.2.0/material.min.js"></script>
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <div id='map'></div>
-  <button id="add-pin-button" onclick="addPin()" class="mdc-fab" aria-label="Favorite">
+<div id='map'></div>
+<button id="add-pin-button" onclick="addPin()" class="mdc-fab" aria-label="Favorite">
     <div class="mdc-fab__ripple"></div>
     <span class="mdc-fab__icon material-icons">add</span>
-  </button>
-  <dialog class="mdl-dialog"dir="rtl">
-      <h4 class="mdl-dialog__title">New marker</h4>
-      <div class="mdl-dialog__content">
+</button>
+<dialog class="mdl-dialog" dir="rtl" style="white-space: nowrap">
+    <h4 class="mdl-dialog__title">New marker</h4>
+    <div class="mdl-dialog__content">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <label for="event" dir="rtl">אירוע</label>
-          <select id="event" onchange="eventSelected()" >
-          <option value="מדרכה צרה" dir="rtl" >מדרכה צרה</option>
-          <optgroup label="מכשול בדרך" dir="rtl">מכשול בדרך>
-          <option value="עמוד" dir="rtl">עמוד</option>
-          <option value="עץ" dir="rtl">עץ</option>
-          <option value="בור" dir="rtl"> בור</option>
-          <option value="מדרכה שבורה" dir="rtl"> מדרכה שבורה</option>
-          <option value=" תחנת אוטובוס" dir="rtl">תחנת אוטובוס</option>
-          </optgroup>
-          <option value="ירידה לא בטוחה למעבר חצייה" dir="rtl" >ירידה לא בטוחה למעבר חצייה</option>
-          <option value="שירותי נכים" dir="rtl" >שירותי נכים</option>
-          <option value="חניית נכים" dir="rtl" >חניית נכים</option>
-          <option value="חוף ים נגיש" dir="rtl" >חוף ים נגיש</option>
-          <option value="ספסל נגיש" dir="rtl" >ספסל נגיש</option>
-          </select>
-          
-          <label for="severity" dir="rtl">חומרה</label>
-          <select id="severity" dir="rtl"> חומרה
-          <option value="קריטי " dir="rtl" >קריטי </option>
-          <option value="חשוב " dir="rtl" >חשוב מאוד</option>
-          <option value="מינורי" dir="rtl" >מינורי</option>
-          </select>
+            <label for="event" dir="rtl">אירוע</label>
+            <select id="event" onchange="eventSelected()">
+                <optgroup label="מכשול בדרך" dir="rtl">מכשול בדרך>
+                    <option value="מדרכה צרה" dir="rtl">מדרכה צרה</option>
+                    <option value="עמוד" dir="rtl">עמוד</option>
+                    <option value="עץ" dir="rtl">עץ</option>
+                    <option value="בור" dir="rtl"> בור</option>
+                    <option value="מדרכה שבורה" dir="rtl"> מדרכה שבורה</option>
+                    <option value=" תחנת אוטובוס" dir="rtl">תחנת אוטובוס</option>
+                </optgroup>
+                <optgroup label="נגישות" dir="rtl">נגישות>
+                    <option value="ירידה לא בטוחה למעבר חצייה" dir="rtl">ירידה לא בטוחה למעבר חצייה</option>
+                    <option value="שירותי נכים" dir="rtl">שירותי נכים</option>
+                    <option value="חניית נכים" dir="rtl">חניית נכים</option>
+                    <option value="חוף ים נגיש" dir="rtl">חוף ים נגיש</option>
+                    <option value="ספסל נגיש" dir="rtl">ספסל נגיש</option>
+                </optgroup>
+            </select>
+          </br>
+            <label for="severity" dir="rtl">חומרה</label>
+            <select id="severity" dir="rtl"> חומרה
+                <option value="קריטי " dir="rtl">קריטי</option>
+                <option value="חשוב " dir="rtl">חשוב מאוד</option>
+                <option value="מינורי" dir="rtl">מינורי</option>
+            </select>
         </div>
-      </div>
-      <div class="mdl-dialog__actions">
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored mdl-shadow--2dp" id="dialog-rate_save">Save</button>
+    </div>
+    <div class="mdl-dialog__actions">
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored mdl-shadow--2dp"
+                id="dialog-rate_save">Save
+        </button>
         <button type="button" class="mdl-button close">Close</button>
-      </div>
-  </dialog>
-  <script src="app.js"></script>
+    </div>
+</dialog>
+<script src="app.js"></script>
 </body>
 </html>
