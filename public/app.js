@@ -139,12 +139,14 @@ dialog.querySelector('#dialog-rate_save').addEventListener('click', function() {
     const event = document.querySelector('#event').value;
     const id = getRandomId();
     let data;
+    let severityOutput = severity? "<b>חומרה:</b>" + severity: "";
+
     if(severityDom.disabled)
        data = {event, coords: currentPinCoords};
 
     else
-     data = {event, severity:severityDom.value, coords: currentPinCoords};
-    addPointToMap(id, event, severityDom.value, currentPinCoords);
+     data = {event, severity:severityOutput, coords: currentPinCoords};
+    addPointToMap(id, event, severityOutput, currentPinCoords);
 
     fetch(`/add_point?id=${id}&data=${JSON.stringify(data)}`, {
       method: 'GET'
