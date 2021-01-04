@@ -19,7 +19,8 @@ function markerPicker(str) {
         "שירותי נכים": "image10.png",
         "חניית נכים": "image11.png",
         "חוף ים נגיש": "beach.png",
-        "ספסל נגיש": "image12.png"
+        "ספסל נגיש": "image12.png",
+        "מכשול כללי": "danger.webp"
 
 
     }
