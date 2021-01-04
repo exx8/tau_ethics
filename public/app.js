@@ -141,11 +141,16 @@ dialog.querySelector('#dialog-rate_save').addEventListener('click', function() {
     let data;
     let severityOutput = severity? "<b>חומרה:</b>" + severity: "";
 
-    if(severityDom.disabled)
-       data = {event, coords: currentPinCoords};
+    if(severityDom.disabled) {
+      data = {event, coords: currentPinCoords};
+      severityOutput=null;
+    }
 
-    else
-     data = {event, severity:severityOutput, coords: currentPinCoords};
+    else {
+      severityOutput=severityDom.value;
+      data = {event, severity: severityOutput, coords: currentPinCoords};
+
+    }
     addPointToMap(id, event, severityOutput, currentPinCoords);
 
     fetch(`/add_point?id=${id}&data=${JSON.stringify(data)}`, {
