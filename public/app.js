@@ -15,7 +15,7 @@ function markerPicker(str)
     "ירידה לא בטוחה למעבר חצייה":"image8.png",
     "שירותי נכים": "image10.png",
     "חניית נכים":"image11.png",
-  "חוף ים נגיש":"beach.svg",
+  "חוף ים נגיש":"beach.png",
     "ספסל נגיש":"image12.png"
 
 
@@ -201,7 +201,7 @@ function eventSelected()
   var e = document.getElementById("event");
   var strUser = e.options[e.selectedIndex].text;
 
-  if( ["תחנת אוטובוס","שירותי נכים","חוף ים נגיש","ספסל נגיש"].includes(strUser))
+  if( ["תחנת אוטובוס","שירותי נכים","חוף ים נגיש","ספסל נגיש","חניית נכים"].includes(strUser))
       severity.setAttribute("disabled","disabled");
   else
     severity.removeAttribute("disabled");
