@@ -125,7 +125,7 @@ function addPointToMap(id, event, severity, coords) {
     editMode=true;
   }
 
-  let severityOutput = severity? "<b>חומרה:</b>" + severity: "";
+  let severityOutput = severity?.disabled? "<b>חומרה:</b>" + severity?.value: "";
   marker.bindTooltip("<b>אירוע</b>:" + event + "<br/> " + severityOutput).on('click',click_handler).addTo(map);
 }
 
@@ -139,7 +139,6 @@ dialog.querySelector('#dialog-rate_save').addEventListener('click', function() {
     const event = document.querySelector('#event').value;
     const id = getRandomId();
     let data;
-    let severityOutput = severity? "<b>חומרה:</b>" + severity: "";
 
     if(severityDom.disabled) {
       data = {event, coords: currentPinCoords};
