@@ -14,6 +14,13 @@ html, body {
   z-index: 1000;
 }
 
+#contact-us {
+  position: absolute;
+  bottom: 76px;
+  right: 10px;
+  z-index: 1000;
+}
+
 .add-pin-button--active {
   background-color: rgb(141, 191, 204);
 }
