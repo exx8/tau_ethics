@@ -130,7 +130,7 @@ function addPointToMap(id, event, severity, coords) {
         editMode = true;
     }
 
-    let severityOutput = severity?.disabled ? "<b>חומרה:</b>" + severity?.value : "";
+    let severityOutput = severity ? "<b>חומרה:</b>" + severity : "";
     marker.bindTooltip("<b>אירוע</b>:" + event + "<br/> " + severityOutput).on('click', click_handler).addTo(map);
 }
 
