@@ -124,20 +124,27 @@ function addPointToMap(id, event, severity, coords) {
     currentPinCoords=coords;
     editMode=true;
   }
-  marker.bindTooltip("<b>אירוע</b>:" + event + "<br/> <b>חומרה:</b>" + severity).on('click',click_handler).addTo(map);
+
+  let severityOutput = severity? "<b>חומרה:</b>" + severity: "";
+  marker.bindTooltip("<b>אירוע</b>:" + event + "<br/> " + severityOutput).on('click',click_handler).addTo(map);
 }
 
 // Dialog save
 dialog.querySelector('#dialog-rate_save').addEventListener('click', function() {
   dialog.close();
 
+  const severityDom = document.querySelector('#severity');
   if (currentPinCoords) {
 
     const event = document.querySelector('#event').value;
-    const severity = document.querySelector('#severity').value;
     const id = getRandomId();
-    const data = {event, severity, coords: currentPinCoords};
-    addPointToMap(id, event, severity, currentPinCoords);
+    let data;
+    if(severityDom.disabled)
+       data = {event, coords: currentPinCoords};
+
+    else
+     data = {event, severity:severityDom.value, coords: currentPinCoords};
+    addPointToMap(id, event, severityDom.value, currentPinCoords);
 
     fetch(`/add_point?id=${id}&data=${JSON.stringify(data)}`, {
       method: 'GET'
@@ -147,7 +154,7 @@ dialog.querySelector('#dialog-rate_save').addEventListener('click', function() {
   {
     editMode=false;
     const event = document.querySelector('#event').value;
-    const severity = document.querySelector('#severity').value;
+    const severity = severityDom.value;
     addPointToMap(id, event, severity, currentPinCoords);
 
 
