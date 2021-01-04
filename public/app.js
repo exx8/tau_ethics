@@ -186,7 +186,7 @@ function eventSelected()
   var e = document.getElementById("event");
   var strUser = e.options[e.selectedIndex].text;
 
-  if(strUser in ["תחנת אוטובוס","שירותי נכים","חוף ים נגיש","ספסל נגיש"])
+  if( ["תחנת אוטובוס","שירותי נכים","חוף ים נגיש","ספסל נגיש"].includes(strUser))
       e.setAttribute("disabled","disabled");
   else
     e.removeAttribute("disabled");
