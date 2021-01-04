@@ -183,13 +183,14 @@ fetch('/all_points', { method: 'GET' })
     );
 function eventSelected()
 {
+  var severity=document.getElementById("severity");
   var e = document.getElementById("event");
   var strUser = e.options[e.selectedIndex].text;
 
   if( ["תחנת אוטובוס","שירותי נכים","חוף ים נגיש","ספסל נגיש"].includes(strUser))
-      e.setAttribute("disabled","disabled");
+      severity.setAttribute("disabled","disabled");
   else
-    e.removeAttribute("disabled");
+    severity.removeAttribute("disabled");
 }
 // Utils
 function getRandomId() {
