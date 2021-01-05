@@ -23,7 +23,7 @@
 <body>
 <div id='map'></div>
 
-<button id="contact-us" onclick="addPin()" class="mdc-fab" aria-label="Favorite">
+<button id="contact-us" onclick="showAboutUs()" class="mdc-fab" aria-label="Favorite">
     <div class="mdc-fab__ripple"></div>
     <span class="mdc-fab__icon material-icons">contact_support</span>
 </button>
@@ -69,6 +69,16 @@
                 id="dialog-rate_save">Save
         </button>
         <button type="button" class="mdl-button close">Close</button>
+    </div>
+</dialog>
+
+<dialog id="about-us" class="mdl-dialog dialog" dir="rtl">
+    <h4 class="mdl-dialog__title">על הפרויקט</h4>
+    <div class="mdl-dialog__content">
+        במסגרת פרויקט באוניברסיטה יצרנו אפליקציה למיפוי מקומות נגישים ולא נגישים עבור משתמשים בכיסאות גלגלים.
+        כדי להוסיף נקודה יש ללחוץ על כפתור ה + בפינה הימנית התחתונה. לאחר מכן נפתחת חלונית חדשה בה יש לבחור נקודת ציון נגישה או לא נגישה. במידה ומדובר בנקודה לא נגישה, יש לציין את מידת חומרתה, אנו מעבירים את הפרטים לעיריות המקומיות לשם טיפול בבעיה.
+        כמו כן, מצ"ב מייל ליצירת קשר איתנו : <a href="mailto:negishut.tau@gmail.com">negishut.tau@gmail.com</a>
+        <button type="button" class="mdl-button close" onclick="hideAboutUs()">Close</button>
     </div>
 </dialog>
 <script src="app.js"></script>

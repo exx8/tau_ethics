@@ -212,3 +212,13 @@ function eventSelected() {
 function getRandomId() {
     return Math.random().toString().substr(2, 9);
 };
+
+function showAboutUs()
+{
+    document.getElementById("about-us").showModal();
+}
+function hideAboutUs()
+{
+    document.getElementById("about-us").close();
+
+}
