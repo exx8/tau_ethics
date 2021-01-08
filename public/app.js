@@ -67,42 +67,42 @@ let locationMarker;
 let locationRadius;
 
 if (ZOOM_TO_LOCATION) {
-  function onLocationFound(e) {
-    let radius = e.accuracy / 2;
-    if (locationMarker) {
-      map.removeLayer(locationMarker);
+    function onLocationFound(e) {
+        let radius = e.accuracy / 2;
+        if (locationMarker) {
+            map.removeLayer(locationMarker);
+        }
+        if (locationRadius) {
+            map.removeLayer(locationRadius);
+        }
+        locationMarker = L.marker(e.latlng).addTo(map);
+        locationRadius = L.circle(e.latlng, radius).addTo(map);
     }
-    if (locationRadius) {
-      map.removeLayer(locationRadius);
+
+    function onLocationError(e) {
+        console.log(e.message);
     }
-    locationMarker = L.marker(e.latlng).addTo(map);
-    locationRadius = L.circle(e.latlng, radius).addTo(map);
-  }
 
-  function onLocationError(e) {
-    console.log(e.message);
-  }
+    function onLocationUpdateFound(e) {
+        const latlng = L.latLng(e.coords.latitude, e.coords.longitude);
+        locationMarker.setLatLng(latlng);
+        locationRadius.setLatLng(latlng);
+    }
 
-  function onLocationUpdateFound(e) {
-    const latlng = L.latLng(e.coords.latitude, e.coords.longitude);
-    locationMarker.setLatLng(latlng); 
-    locationRadius.setLatLng(latlng);
-  }
+    function onLocationUpdateError(e) {
+        console.log(e.message);
+    }
 
-  function onLocationUpdateError(e) {
-    console.log(e.message);
-  }
+    var G_options = {
+        enableHighAccuracy: true,
+        maximumAge: 0,
+        timeout: 30000
+    };
 
-  var G_options = {
-    enableHighAccuracy: true,
-    maximumAge: 0,
-    timeout: 30000
-  };
-
-  map.on('locationfound', onLocationFound);
-  map.on('locationerror', onLocationError);
-  map.locate({ setView: true, maxZoom: 19 });
-  navigator.geolocation.watchPosition(onLocationUpdateFound, onLocationUpdateError, G_options);
+    map.on('locationfound', onLocationFound);
+    map.on('locationerror', onLocationError);
+    map.locate({setView: true, maxZoom: 19});
+    navigator.geolocation.watchPosition(onLocationUpdateFound, onLocationUpdateError, G_options);
 }
 
 // Map press event
@@ -233,12 +233,11 @@ function getRandomId() {
     return Math.random().toString().substr(2, 9);
 };
 
-function showAboutUs()
-{
+function showAboutUs() {
     document.getElementById("about-us").showModal();
 }
-function hideAboutUs()
-{
+
+function hideAboutUs() {
     document.getElementById("about-us").close();
 
 }
