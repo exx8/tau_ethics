@@ -33,7 +33,7 @@
     <span class="mdc-fab__icon material-icons">add</span>
 </button>
 <dialog class="mdl-dialog" dir="rtl" style="white-space: nowrap">
-    <h4 class="mdl-dialog__title">New marker</h4>
+    <h4 class="mdl-dialog__title">New Eevent</h4>
     <div class="mdl-dialog__content">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <label for="event" dir="rtl">אירוע</label>
@@ -45,7 +45,7 @@
                     <option value="עץ" dir="rtl">עץ</option>
                     <option value="בור" dir="rtl"> בור</option>
                     <option value="מדרכה שבורה" dir="rtl"> מדרכה שבורה</option>
-                    <option value=" תחנת אוטובוס" dir="rtl">תחנת אוטובוס</option>
+                    <option value="תחנת אוטובוס" dir="rtl">תחנת אוטובוס</option>
                     <option value="ירידה לא בטוחה למעבר חצייה" dir="rtl">ירידה לא בטוחה למעבר חצייה</option>
                 </optgroup>
                 <optgroup label="נגישות" dir="rtl">נגישות>
@@ -59,7 +59,7 @@
             <label for="severity" dir="rtl">חומרה</label>
             <select id="severity" dir="rtl"> חומרה
                 <option value="קריטי " dir="rtl">קריטי</option>
-                <option value="חשוב " dir="rtl">חשוב מאוד</option>
+                <option value="חמור " dir="rtl">חמור </option>
                 <option value="מינורי" dir="rtl">מינורי</option>
             </select>
         </div>
@@ -68,7 +68,7 @@
         <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored mdl-shadow--2dp"
                 id="dialog-rate_save">Save
         </button>
-        <button type="button" class="mdl-button close">Close</button>
+        <button type="button" class="mdl-button Delete">Delete</button>
     </div>
 </dialog>
 
@@ -76,8 +76,8 @@
     <h4 class="mdl-dialog__title">על הפרויקט</h4>
     <div class="mdl-dialog__content">
         במסגרת פרויקט באוניברסיטה יצרנו אפליקציה למיפוי מקומות נגישים ולא נגישים עבור משתמשים בכיסאות גלגלים.
-        כדי להוסיף נקודה יש ללחוץ על כפתור ה + בפינה הימנית התחתונה. לאחר מכן נפתחת חלונית חדשה בה יש לבחור נקודת ציון נגישה או לא נגישה. במידה ומדובר בנקודה לא נגישה, יש לציין את מידת חומרתה, אנו מעבירים את הפרטים לעיריות המקומיות לשם טיפול בבעיה.
-        כמו כן, מצ"ב מייל ליצירת קשר איתנו : <a href="mailto:negishut.tau@gmail.com">negishut.tau@gmail.com</a>
+        כדי להוסיף נקודה יש ללחוץ על כפתור ה + בפינה הימנית התחתונה ולבחור את המיקום במפה. לאחר מכן נפתחת חלונית חדשה בה יש לבחור נקודת ציון נגישה או לא נגישה. במידה ומדובר בנקודה לא נגישה, יש לציין את מידת חומרתה.מצ"ב מייל ליצירת קשר איתנו, כמו כן, ניתן לדווח לנו בו על מפגע שתרצו שיעבור לעירייה, בציון מיקום המפגע.
+        המייל : <a href="mailto:negishut.tau@gmail.com">negishut.tau@gmail.com</a>
         <button type="button" class="mdl-button close" onclick="hideAboutUs()">Close</button>
     </div>
 </dialog>

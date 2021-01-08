@@ -62,27 +62,47 @@ let pinInPlacement = false;
 let currentPinCoords = null;
 const ZOOM_TO_LOCATION = true;
 
-// Example code to show how to get GPS location and place pin on map in that location
+
+let locationMarker;
+let locationRadius;
+
 if (ZOOM_TO_LOCATION) {
-    function onLocationFound(e) {
-        let radius = e.accuracy / 2;
-
-        L.marker(e.latlng)
-            .addTo(map)
-            .on('dblclick')
-            .bindPopup("You are within " + radius + " meters from this point")
-            .openPopup();
-
-        L.circle(e.latlng, radius).addTo(map);
+  function onLocationFound(e) {
+    let radius = e.accuracy / 2;
+    if (locationMarker) {
+      map.removeLayer(locationMarker);
     }
-
-    function onLocationError(e) {
-        console.log(e.message);
+    if (locationRadius) {
+      map.removeLayer(locationRadius);
     }
+    locationMarker = L.marker(e.latlng).addTo(map);
+    locationRadius = L.circle(e.latlng, radius).addTo(map);
+  }
 
-    map.on('locationfound', onLocationFound);
-    map.on('locationerror', onLocationError);
-    map.locate({setView: true, maxZoom: 19});
+  function onLocationError(e) {
+    console.log(e.message);
+  }
+
+  function onLocationUpdateFound(e) {
+    const latlng = L.latLng(e.coords.latitude, e.coords.longitude);
+    locationMarker.setLatLng(latlng); 
+    locationRadius.setLatLng(latlng);
+  }
+
+  function onLocationUpdateError(e) {
+    console.log(e.message);
+  }
+
+  var G_options = {
+    enableHighAccuracy: true,
+    maximumAge: 0,
+    timeout: 30000
+  };
+
+  map.on('locationfound', onLocationFound);
+  map.on('locationerror', onLocationError);
+  map.locate({ setView: true, maxZoom: 19 });
+  navigator.geolocation.watchPosition(onLocationUpdateFound, onLocationUpdateError, G_options);
 }
 
 // Map press event
@@ -173,7 +193,7 @@ dialog.querySelector('#dialog-rate_save').addEventListener('click', function () 
 });
 
 // Dialog close (without saving)
-dialog.querySelector('.close').addEventListener('click', function () {
+dialog.querySelector('.Delete').addEventListener('click', function () {
     dialog.close();
     deactivateAddPinButton();
 });
@@ -202,7 +222,7 @@ function eventSelected() {
     var e = document.getElementById("event");
     var strUser = e.options[e.selectedIndex].text;
 
-    if (["תחנת אוטובוס", "שירותי נכים", "חוף ים נגיש", "ספסל נגיש", "חניית נכים"].includes(strUser))
+    if (["שירותי נכים", "חוף ים נגיש", "ספסל נגיש", "חניית נכים"].includes(strUser))
         severity.setAttribute("disabled", "disabled");
     else
         severity.removeAttribute("disabled");
