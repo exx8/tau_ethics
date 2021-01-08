@@ -222,7 +222,7 @@ function eventSelected() {
     var e = document.getElementById("event");
     var strUser = e.options[e.selectedIndex].text;
 
-    if (["תחנת אוטובוס", "שירותי נכים", "חוף ים נגיש", "ספסל נגיש", "חניית נכים"].includes(strUser))
+    if (["שירותי נכים", "חוף ים נגיש", "ספסל נגיש", "חניית נכים"].includes(strUser))
         severity.setAttribute("disabled", "disabled");
     else
         severity.removeAttribute("disabled");
